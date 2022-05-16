@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export const Sample = () => {
   console.log("render()");
+
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -9,15 +10,20 @@ export const Sample = () => {
 
     (async() => {
       console.log('async関数が呼ばれた')
+
       await new Promise(resolve => setTimeout(resolve, 3000))
+
       console.log(`didCancel: ${didCancel}, count: ${count}`);
+
       if (!didCancel) {
         console.log('setTimeoutから抜けた')
+        console.log('------------------------')
       }
     })()
 
     return () => {
       console.log(`didCancelをtrueにした count = ${count}`)
+
       didCancel = true;
     };
   }, [count])
