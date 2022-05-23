@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Component, useRef } from "react";
 
 export const Counter = () => {
   const [count, setCount] = useState(0);
@@ -86,6 +86,75 @@ export const Counter4 = () => {
           // レンダリングされない
           // setCount(count);
         }}>
+        Click me
+      </button>
+    </div>
+  );
+}
+
+export const Counter5 = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(`You clicked ${count} times`);
+    }, 3000);
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );}
+
+export class Counter6 extends Component {
+  state = {
+    count: 0
+  }
+  componentDidMount() {
+    const count = this.state.count; // これが無いと、最新の this.state.count を参照してしまう
+    setTimeout(() => {
+      console.log(`(componentDidMount) You clicked ${count} times`);
+    }, 3000)
+  }
+  componentDidUpdate() {
+    const count = this.state.count;
+    setTimeout(() => {
+      console.log(`(componentDidUpdate) You clicked ${count} times`);
+    }, 3000)
+  }
+  render() {
+    return (
+      <div>
+        <p>You clicked {this.state.count} times</p>
+        <button onClick={() => this.setState({count: this.state.count + 1})}>
+          Click me
+        </button>
+      </div>
+    )
+  }
+}
+
+export function Counter7() {
+  const [count, setCount] = useState(0);
+  const latestCount = useRef(count);
+
+  useEffect(() => {
+    // mutable な最新の値をセットする
+    latestCount.current = count;
+    setTimeout(() => {
+      // mutable な最新の値を読む
+      console.log(`You clicked ${latestCount.current} times`);
+    }, 3000);
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
         Click me
       </button>
     </div>
