@@ -1,9 +1,9 @@
 import type { NextPage } from 'next'
-import { Counter7 } from '../components/Counter'
+import { Counter8 } from '../components/Counter'
 // import { Sample } from '../components/DidCancel'
 
 const Home: NextPage = (props) => {
-  return <Counter7 />
+  return <Counter8 />
 }
 
 export default Home
